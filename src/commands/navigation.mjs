@@ -1,6 +1,7 @@
 import { chdir, cwd } from "node:process";
 import path from "node:path";
 import { access, readdir } from "node:fs/promises";
+import * as hash from "./hash.mjs";
 import * as files from "./files.mjs";
 import * as compress from "./compress.mjs";
 
@@ -62,6 +63,9 @@ export const handleCommand = async (command) => {
         break;
       case "add":
         await files.add(args[0]);
+        break;
+      case "hash":
+        await hash.calculateHash(args[0]);
         break;
       case "compress":
         await compress.compress(args[0], args[1]);
