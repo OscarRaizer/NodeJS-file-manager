@@ -1,6 +1,7 @@
 import { chdir, cwd } from "node:process";
 import path from "node:path";
 import { access, readdir } from "node:fs/promises";
+import { add } from "./files.mjs";
 
 export const up = () => {
   const currentDir = cwd();
@@ -57,6 +58,9 @@ export const handleCommand = async (command) => {
         break;
       case "ls":
         await ls();
+        break;
+      case "add":
+        await files.add(args[0]);
         break;
       default:
         throw new Error("Invalid input");
