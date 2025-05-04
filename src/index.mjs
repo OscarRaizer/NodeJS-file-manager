@@ -1,6 +1,6 @@
 import { cwd } from "node:process";
 import { stdin as input, stdout as output, chdir } from "node:process";
-import * as readline from "node:readline/promises";
+import { createInterface } from "node:readline/promises";
 import { handleCommand } from "./commands/navigation.mjs";
 import { parseArgs } from "./parseArgs.mjs";
 import { homedir } from "node:os";
@@ -12,7 +12,7 @@ const init = async () => {
     `Welcome to the File Manager, ${username}!\nYou are currently in ${cwd()}`,
   );
 
-  const rl = readline.createInterface({ input, output, prompt: "> " });
+  const rl = createInterface({ input, output, prompt: "> " });
   rl.on("line", async (input) => {
     const command = input.trim();
 
