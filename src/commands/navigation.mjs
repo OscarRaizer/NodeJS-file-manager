@@ -4,6 +4,7 @@ import { access, readdir } from "node:fs/promises";
 import * as hash from "./hash.mjs";
 import * as files from "./files.mjs";
 import * as compress from "./compress.mjs";
+import * as os from "./os.mjs";
 
 export const up = () => {
   const currentDir = cwd();
@@ -76,6 +77,9 @@ export const handleCommand = async (command) => {
       case "mkdir":
         await files.createdir(args[0]);
         break;
+      case "os":
+        handleOSCommand(args);
+        break;
       default:
         throw new Error("Invalid input");
     }
@@ -85,5 +89,18 @@ export const handleCommand = async (command) => {
     console.log(
       error.message === "Invalid input" ? "Invalid input" : "Operation failed",
     );
+  }
+};
+
+const handleOSCommand = (args) => {
+  switch (args[0]) {
+    case "--EOL":
+      os.getEOL();
+      break;
+    case "--cpus":
+      os.getCPUs();
+      break;
+    default:
+      throw new Error("Invalid input");
   }
 };
