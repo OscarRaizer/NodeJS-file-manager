@@ -1,6 +1,6 @@
 import { chdir, cwd } from "node:process";
 import path from "node:path";
-import { access } from "node:fs/promises";
+import { access, readdir } from "node:fs/promises";
 
 export const up = () => {
   const currentDir = cwd();
@@ -21,6 +21,29 @@ export const cd = async (targetPath) => {
   }
 };
 
+export const ls = async () => {
+  try {
+    const files = await readdir(cwd(), { withFileTypes: true });
+
+    const sortedFiles = files.sort((a, b) => {
+      if (a.isDirectory() === b.isDirectory()) {
+        return a.name.localeCompare(b.name);
+      }
+      return b.isDirectory() - a.isDirectory();
+    });
+
+    const tableData = sortedFiles.map((file, index) => ({
+      Index: index,
+      Name: file.name,
+      Type: file.isDirectory() ? "directory" : "file",
+    }));
+
+    console.table(tableData);
+  } catch (err) {
+    console.log("Operation failed");
+  }
+};
+
 export const handleCommand = async (command) => {
   const [action, ...args] = command.split(" ");
 
@@ -31,6 +54,9 @@ export const handleCommand = async (command) => {
         break;
       case "cd":
         await cd(args[0]);
+        break;
+      case "ls":
+        await ls();
         break;
       default:
         throw new Error("Invalid input");
