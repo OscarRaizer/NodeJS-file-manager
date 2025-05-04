@@ -73,6 +73,9 @@ export const handleCommand = async (command) => {
       case "decompress":
         await compress.decompress(args[0], args[1]);
         break;
+      case "mkdir":
+        await files.createdir(args[0]);
+        break;
       default:
         throw new Error("Invalid input");
     }
