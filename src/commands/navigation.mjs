@@ -1,7 +1,8 @@
 import { chdir, cwd } from "node:process";
 import path from "node:path";
 import { access, readdir } from "node:fs/promises";
-import { add } from "./files.mjs";
+import * as files from "./files.mjs";
+import * as compress from "./compress.mjs";
 
 export const up = () => {
   const currentDir = cwd();
@@ -61,6 +62,12 @@ export const handleCommand = async (command) => {
         break;
       case "add":
         await files.add(args[0]);
+        break;
+      case "compress":
+        await compress.compress(args[0], args[1]);
+        break;
+      case "decompress":
+        await compress.decompress(args[0], args[1]);
         break;
       default:
         throw new Error("Invalid input");
