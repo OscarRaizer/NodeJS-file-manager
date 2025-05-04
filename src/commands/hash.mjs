@@ -6,13 +6,9 @@ export const calculateHash = async (filePath) => {
   try {
     const hash = createHash("sha256");
     const stream = createReadStream(filePath);
-    stream.pipe(hash);
 
-    let result = "";
-    for await (const chunk of hash) {
-      result += chunk.toString("hex");
-    }
-    console.log(result);
+    await pipeline(stream, hash);
+    console.log(hash.digest("hex"));
   } catch {
     throw new Error("Operation failed");
   }
