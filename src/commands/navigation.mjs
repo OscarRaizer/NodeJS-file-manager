@@ -65,6 +65,9 @@ export const handleCommand = async (command) => {
       case "add":
         await files.add(args[0]);
         break;
+      case "rm":
+        await files.rm(args[0]);
+        break;
       case "hash":
         await hash.calculateHash(args[0]);
         break;
