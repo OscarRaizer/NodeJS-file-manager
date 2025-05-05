@@ -44,7 +44,7 @@ export const ls = async () => {
 
     console.table(tableData);
   } catch (err) {
-    console.log("Operation failed");
+    throw new Error("Operation failed");
   }
 };
 
@@ -66,7 +66,7 @@ export const handleCommand = async (command) => {
         await files.add(args[0]);
         break;
       case "rm":
-        await files.rm(args[0]);
+        await files.remove(args[0]);
         break;
       case "hash":
         await hash.calculateHash(args[0]);
