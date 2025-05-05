@@ -80,6 +80,9 @@ export const handleCommand = async (command) => {
       case "mkdir":
         await files.createdir(args[0]);
         break;
+      case "cat":
+        await files.readFile(args[0]);
+        break;
       case "os":
         handleOSCommand(args);
         break;
@@ -95,7 +98,7 @@ export const handleCommand = async (command) => {
   }
 };
 
-const handleOSCommand = (args) => {
+const handleOSCommand = async (args) => {
   switch (args[0]) {
     case "--EOL":
       os.getEOL();
