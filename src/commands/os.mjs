@@ -15,3 +15,15 @@ export const getCPUs = () => {
   console.log(`Total CPU cores: ${cpus.length}`);
   console.table(tableData);
 };
+
+export const getHomedir = () => {
+  console.log(os.homedir());
+};
+
+export const getUsername = () => {
+  console.log(os.userInfo().username);
+};
+
+export const getArchitecture = () => {
+  console.log(os.arch());
+};

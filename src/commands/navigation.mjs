@@ -103,6 +103,15 @@ const handleOSCommand = (args) => {
     case "--cpus":
       os.getCPUs();
       break;
+    case "--homedir":
+      os.getHomedir();
+      break;
+    case "--username":
+      os.getUsername();
+      break;
+    case "--architecture":
+      os.getArchitecture();
+      break;
     default:
       throw new Error("Invalid input");
   }
